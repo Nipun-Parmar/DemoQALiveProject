@@ -1,6 +1,6 @@
 package com.tutorialsninja.automation.framework;
 
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
 import java.util.function.BooleanSupplier;
 
 import org.apache.log4j.Logger;
@@ -21,17 +21,18 @@ public class Waits {
 	
 	
 	public static void setImplicitWait(int time){
-		Base.driver.manage().timeouts().implicitlyWait(time, TimeUnit.SECONDS);
+		//Base.driver.manage().timeouts().implicitlyWait(time, TimeUnit.SECONDS);
+		Base.driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(time));
 	}
 	
 	
 	public static void waitUntilElementLocated(int time,WebElement element){
-		WebDriverWait wait=new WebDriverWait(Base.driver,time);
+		WebDriverWait wait=new WebDriverWait(Base.driver,Duration.ofSeconds(time));
 		wait.until(ExpectedConditions.visibilityOf(element));
 	}
 	
 	public static void waitUntilElementToClick(int time,WebElement element){
-		WebDriverWait wait=new WebDriverWait(Base.driver,time);
+		WebDriverWait wait=new WebDriverWait(Base.driver,Duration.ofSeconds(time));
 		wait.until(ExpectedConditions.elementToBeClickable(element));
 		}
 	
@@ -78,7 +79,7 @@ public class Waits {
     }
     
     public static void waitUntil(BooleanSupplier condition, int seconds) {
-        new WebDriverWait(Base.driver, seconds).until((WebDriver driver) -> condition.getAsBoolean());
+        new WebDriverWait(Base.driver, Duration.ofSeconds(seconds)).until((WebDriver driver) -> condition.getAsBoolean());
     }
 
     public static void waitUntil(BooleanSupplier condition) {
